@@ -6,6 +6,6 @@ const autorSchema = new mongoose.Schema({
   nacionalidade: { type: String }
 }, {versionKey: false} );
 // o autores(parametro string) refere-se ao nome da coleção criada no DB(mongoose atlas)
-const autor = mongoose.model("autores", autorSchema);
+const autores = mongoose.model("autores", autorSchema);
 
-export { autor, autorSchema };
+export { autores, autorSchema };
