@@ -1,7 +1,6 @@
 // import mongoose from "mongoose";
 import NaoEncontrado from "../erros/NaoEncontrado.js";
-import livros from "../models/Livro.js";
-// import { autores } from "../models/Autor.js";
+import {livros} from "../models/index.js";
 
 class LivroController{
   static listarLivros = async (req, res, next) => {

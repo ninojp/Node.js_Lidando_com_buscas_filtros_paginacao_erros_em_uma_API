@@ -71,3 +71,29 @@ Nos aproveitamos dos conceitos da orientação a objetos para criar classes para
 Criar um middleware para tratar páginas 404:
 
 Esse middleware deve ser registrado após todas as outras rotas da aplicação. Assim, se nenhuma das rotas registradas tiver sido correspondida, o código desse middleware será executado. Em seguida, nele podemos criar um erro (no nosso caso, uma nova instância da classe NaoEncontrado) e enviá-lo para o manipulador de erros.
+
+
+
+## Aula 03 - Validando os Dados
+
+## Aula 03 - Validações do Mongoose - video 1
+Nesta aula, aprendemos a fazer validações de dados utilizando o Mongoose. Foram mostradas as validações de número mínimo e máximo de páginas, além da validação de valores permitidos para o campo editora. Também vimos como personalizar as mensagens de erro em português.
+
+
+## Aula 03 - Validação personalizada - video 2
+Nesta aula, aprendemos a utilizar validações personalizadas no Mongoose. Vimos que podemos criar nossas próprias validações utilizando a função validate e uma arrow function. Dentro dessa função, implementamos a lógica da validação e retornamos um valor booleano que indica se o valor é válido ou não. Também aprendemos a personalizar a mensagem de erro para as validações personalizadas. Por fim, consultamos a documentação do Mongoose para relembrar a sintaxe e a ordem das propriedades necessárias para criar uma validação personalizada.
+
+
+## Aula 03 - Validação global - video 3
+Nesta aula, aprendemos sobre validações globais no Mongoose. Foi explicado como fazer uma validação global para campos do tipo string, utilizando o método set() do mongoose.Schema.Types.String. Foi mostrado como refatorar as importações nos controladores para utilizar o arquivo index.js, que agora exporta os modelos autores e livros. Foi demonstrado o funcionamento da validação global ao enviar requisições para a API, mostrando os erros de validação retornados. Também foi ensinado como personalizar a mensagem de erro da validação global, utilizando uma função arrow que recebe um objeto com o nome do campo que está sendo validado.
+
+
+## Aula 02 - Conclusão - Nessa aula, você aprendeu a:
+Aplicar validações nativas do Mongoose:  
+Você conheceu validadores de números como min e max, que definem, respectivamente, os valores mínimo e máximo que o número do campo deve ter. Você também conheceu o validador de strings enum, que define os valores permitidos para o campo.
+Criar validadores personalizados:
+
+Esses validadores permitem que qualquer código JavaScript seja executado para validar ou não o dado recebido, então eles são adequados para realizar verificações mais complexas, como validar um número de CPF ou de telefone.
+Aplicar um validador global:
+
+Validadores globais também podem ser criados no Mongoose para realizar verificações de um determinado tipo de dado em todos os Schemas da aplicação. No nosso caso, impedimos que qualquer campo do tipo string de qualquer Schema aceitasse strings vazias, pois não é algo que faz sentido para o nosso banco de dados.
