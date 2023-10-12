@@ -1,6 +1,6 @@
 // import mongoose from "mongoose";
 import NaoEncontrado from "../erros/NaoEncontrado.js";
-import {livros} from "../models/index.js";
+import {autores, livros} from "../models/index.js";
 
 class LivroController{
   static listarLivros = async (req, res, next) => {
@@ -66,14 +66,47 @@ class LivroController{
     }
   };
   //--------------------------------------------------------------------------------------------------
-  static listarLivroPorEditora = async (req, res, next) => {
+  static listarLivroPorFiltro = async (req, res, next) => {
     try {
-      const editora = req.query.editora;
-      const livrosResultado = await livros.find({"editora": editora});
-      res.status(200).send(livrosResultado);
+      const busca = await processaBusca(req.query);
+      if(busca !== null){
+        const livrosResultado = await livros.find(busca).populate("autor");
+        res.status(200).send(livrosResultado);
+      }else{
+        // res.status(200).send([]);// professor fez assim
+        res.status(200).send({message: "Nenhum Autor encontrado!"});// Eu fiz
+      }
     } catch (erro) {
       next(erro);
     }
   };
 }
 export default LivroController;
+
+// Obs, a função foi criada fora da classe justamente para não ser exportada
+async function processaBusca(parametros){
+  const {titulo, editora, minPaginas, maxPaginas, nomeAutor} = parametros;
+  // const regex = new RegExp(titulo, "i"); // Sintax usando o JavaScript
+
+  let busca = {};
+  if (editora) busca.editora = editora;
+  // if (titulo) busca.titulo = regex;// Sintax usando o JavaScript
+
+  if (minPaginas || maxPaginas) busca.paginas = {};
+
+  if (titulo) busca.titulo = { $regex: titulo, $options: "i" };//Operadores de busca do MongoDB
+  // $gte,(MongoDB) expressão em inglês “Greater Than or Equal”, “maior ou igual que”
+  if (minPaginas) busca.paginas.$gte = minPaginas;
+  // $lte,(MongoDB) vem da expressão em inglês “Less Than or Equal”, “menor ou igual que”
+  if (maxPaginas) busca.paginas.$lte = maxPaginas;
+
+  if(nomeAutor){
+    const autor = await autores.findOne({nome: nomeAutor});
+    if(autor !== null){
+      busca.autor = autor._id;
+    }else{
+      busca=null;
+    }
+  }
+  return busca;
+}

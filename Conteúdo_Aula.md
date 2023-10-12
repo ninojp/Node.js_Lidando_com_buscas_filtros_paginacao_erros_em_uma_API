@@ -88,7 +88,7 @@ Nesta aula, aprendemos a utilizar validações personalizadas no Mongoose. Vimos
 Nesta aula, aprendemos sobre validações globais no Mongoose. Foi explicado como fazer uma validação global para campos do tipo string, utilizando o método set() do mongoose.Schema.Types.String. Foi mostrado como refatorar as importações nos controladores para utilizar o arquivo index.js, que agora exporta os modelos autores e livros. Foi demonstrado o funcionamento da validação global ao enviar requisições para a API, mostrando os erros de validação retornados. Também foi ensinado como personalizar a mensagem de erro da validação global, utilizando uma função arrow que recebe um objeto com o nome do campo que está sendo validado.
 
 
-## Aula 02 - Conclusão - Nessa aula, você aprendeu a:
+## Aula 03 - Conclusão - Nessa aula, você aprendeu a:
 Aplicar validações nativas do Mongoose:  
 Você conheceu validadores de números como min e max, que definem, respectivamente, os valores mínimo e máximo que o número do campo deve ter. Você também conheceu o validador de strings enum, que define os valores permitidos para o campo.
 Criar validadores personalizados:
@@ -97,3 +97,43 @@ Esses validadores permitem que qualquer código JavaScript seja executado para v
 Aplicar um validador global:
 
 Validadores globais também podem ser criados no Mongoose para realizar verificações de um determinado tipo de dado em todos os Schemas da aplicação. No nosso caso, impedimos que qualquer campo do tipo string de qualquer Schema aceitasse strings vazias, pois não é algo que faz sentido para o nosso banco de dados.
+
+
+
+
+## Aula 04 - Avançando em buscas e filtros
+
+## Aula 04 - Buscando por título do livro - video 1
+Nesta aula, avançamos em buscas e filtros em uma API utilizando Node.js. Implementamos um filtro para o título do livro, permitindo que o usuário escreva o nome do livro e obtenha o retorno da API. Renomeamos o método listarLivroPorEditora para listarLivroPorFiltro e adicionamos a busca por título no método find do mongoose. Criamos um objeto de busca dinâmico, adicionando propriedades de acordo com os parâmetros fornecidos. Testamos a funcionalidade no Postman, buscando por editora, título e ambos. Concluímos que é possível buscar somente pela editora ou pelo título, mas faremos uma implementação para buscar por palavras-chave no próximo vídeo.
+
+
+## Aula 04 - Aplicando regex na busca - video 2
+Nesta aula, aprendemos a aplicar um novo filtro utilizando o método listarLivroPorFiltro que permite a busca de livros por meio da editora ou título. Foi apresentado o conceito de expressões regulares (regex) e como utilizá-las para realizar buscas mais dinâmicas. Foram mostrados exemplos de como utilizar regex no código e no Postman, tanto de forma estática quanto dinâmica. Também foi apresentada uma alternativa utilizando operadores do MongoDB para realizar a busca. Foi ressaltada a importância de conhecer a ferramenta utilizada, como o mongoose, e foi proposto um desafio para praticar a implementação de outros operadores.
+
+
+## Aula 04 - [Desafio: filtrando por número de páginas](https://cursos.alura.com.br/course/node-js-buscas-filtros-paginacao-erros-api/task/124402)
+Agora é a sua vez de implementar um novo filtro na rota de busca! A equipe de Front-end agora está solicitando que os livros possam ser filtrados de acordo com seu número de páginas. Os seguintes requisitos foram passados para a rota GET /livros/busca:
+ - A rota deve estar preparada para receber os parâmetros de busca minPaginas e maxPaginas, que indicam, respectivamente, o número mínimo de páginas e o número máximo de páginas que os livros retornados devem ter;
+ - Se o parâmetro de busca minPaginas for igual a 100, por exemplo, retorne apenas os livros que contêm 100 ou mais páginas;
+ - Se o parâmetro de busca maxPaginas for igual a 300, por exemplo, retorne apenas os livros que contêm 300 ou menos páginas;
+ - Se os dois parâmetros forem fornecidos ao mesmo tempo, retorne os livros que atendem às duas condições ao mesmo tempo. Por exemplo, se minPaginas for igual a 200 e maxPaginas for igual a 500, retorne todos os livros que possuem entre 200 e 500 páginas.
+
+
+## Aula 04 - Filtrando por nome do autor - video 3
+Nesta aula, aprendemos a implementar um filtro de busca por nome do autor em uma API Node.js. Verificamos se o parâmetro do nome do autor foi informado e, em seguida, pesquisamos o autor na coleção de autores. Utilizamos o método findOne() para obter o autor específico e seu ID. Em seguida, aplicamos o filtro na busca dos livros pelo ID do autor. Também aprendemos a utilizar a palavra-chave await para aguardar a resolução de operações assíncronas. Por fim, utilizamos o método populate() para melhorar a visualização dos dados, exibindo o nome do autor no retorno da busca.
+
+
+## Aula 04 - Tratando autor não encontrado - video 4
+Nesta aula, aprendemos a lidar com a busca por um autor inexistente em uma API. Foi feita uma refatoração no código para verificar se o autor existe antes de executar a busca. Caso o autor não exista, a variável de busca é atribuída como nula. Também foi adicionado um else para retornar uma lista vazia caso o autor não seja encontrado. Essa é uma forma mais semântica de dar o retorno para a API.
+> Talvez uma coisa que você tenha pensado seria utilizar o populate do Mongoose para popular os dados do livros com as informações restantes do autor. Infelizmente, essa solução não é possível, pois o método populate não altera a forma como os livros são consultados no banco de dados. Em vez disso, ele apenas popula os campos solicitados depois que a consulta já foi realizada ao banco de dados.
+
+
+## Aula 04 - Conclusão - Nessa aula, você aprendeu a:
+Buscar pelos títulos dos livros de forma dinâmica:  
+Para isso, podemos utilizar expressões regulares (ou regex) para tornar a busca por texto dinâmica. Isso pode ser feito passando diretamente uma expressão regular do JavaScript para o objeto de busca ou podemos utilizar os operadores de busca $regex e $options do MongoDB. Ambas as formas permitem que o valor a ser buscado venha de uma variável e que a flag i seja aplicada para que não haja distinção entre letras maiúsculas e minúsculas na busca.
+Filtrar os livros por número de páginas:
+
+Utilizamos os operadores de busca $gte (greater than or equal, que significa “maior ou igual que”) e $lte (less than or equal, que significa “menor ou igual que”) para definir, respectivamente, o número mínimo de páginas e o número máximo de páginas que um livro deve ter.
+Buscar livros pelo nome do autor:
+
+Como o nome do autor não é uma informação presente na coleção de livros, foi necessário realizar mais uma consulta para a coleção de autores, pois lá é possível obter seu id e realizar corretamente o filtro na busca de livros.
