@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import autopopulate from "mongoose-autopopulate";
 
 const livroSchema = new mongoose.Schema({
   id: { type: String },
@@ -8,7 +9,9 @@ const livroSchema = new mongoose.Schema({
   autor: {
     type: mongoose.Schema.Types.ObjectId, 
     ref: "autores", 
-    required: [true, "O autor(a) é Obrigatório"]},
+    required: [true, "O autor(a) é Obrigatório"],
+    autopopulate: true
+  },
   editora: { 
     type: String, 
     required: [true, "O campo editora é Obrigatório"],
@@ -29,6 +32,7 @@ const livroSchema = new mongoose.Schema({
     max: [5000, "O número de páginas deve estar entre 10 e 5000. Valor fornecido: {VALUE}"] },
 }, 
 { versionKey: false });
+livroSchema.plugin(autopopulate);
 // o LIVROS(parametro string) refere-se ao nome da coleção criada no DB(mongoose atlas)
 const livros = mongoose.model("livros", livroSchema);
 export default livros;

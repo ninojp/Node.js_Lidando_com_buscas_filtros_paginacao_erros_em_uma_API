@@ -148,3 +148,27 @@ Nesta aula, aprendemos a implementar a ordenação dos resultados da listagem de
 
 ## Aula 05 - Reutilizando paginação - video 3
 Nesta aula, implementamos a lógica de paginação e ordenação em uma rota da API, especificamente na listagem de livros. Utilizamos o middleware do Express para realizar esse processo, armazenando o código em um local separado para reutilização. Criamos o middleware paginar.js que recebe os parâmetros de busca, ordenação e paginação da requisição e aplica essas configurações na consulta ao banco de dados. Registramos esse middleware nas rotas de listagem de livros e autores, permitindo a paginação e ordenação nessas rotas.
+
+
+## Aula 05 - Para saber mais: autopopulando com plugin
+Na nossa aplicação, o Schema de livros possui um campo chamado autor que referencia o ID de um autor do Schema de autores. Você sabe que, quando vamos listar livros do banco de dados, podemos utilizar o método populate do Mongoose para trazer informações do autor referenciado. Até agora, estamos utilizando o método populate manualmente em todas as rotas que buscam e retornam livros.  
+
+Mas e se quisermos tornar o comportamento do populate padrão no Schema de livros? Nesse caso, não precisaríamos escrever manualmente esse método toda vez que fôssemos listar livros.
+
+Na verdade, já existe um recurso especial do Mongoose que faz isso pra gente, que se chama plugin. O nome do plugin que vamos utilizar é o auto-populate, ele foi desenvolvido pela própria equipe do Mongoose.  
+[Instalando e utilizando o auto-populate](https://cursos.alura.com.br/course/node-js-buscas-filtros-paginacao-erros-api/task/124408)
+
+
+## Aula 05 - Conclusão - Nessa aula, você aprendeu a:
+ - Paginar uma rota:  
+Para isso, aplicamos o método skip para pular a quantidade de registros necessários para a página solicitada e o método limit para limitar os resultados exibidos em uma única página.
+ - Ordenar os resultados:  
+Com o método sort podemos ordenar os resultados de acordo com algum campo da coleção. Por exemplo, é possível ordenar o _id de forma decrescente para obter primeiro os registros mais recentes ou ordenar um campo de texto de forma crescente para retornar os registros em ordem alfabética.
+ - Reutilizar a lógica de paginação em um middleware:  
+Mais uma vez utilizamos os middlewares do Express para reutilizar lógica em nossa aplicação. Criamos um middleware chamado paginar e o registramos nas rotas GET /livros, GET /livros/busca e GET /autores.
+ - Compartilhar informações entre middlewares:  
+Para isso, podemos utilizar o objeto de requisição req. No nosso caso, guardamos as buscas do Mongoose em req.resultado para que o middleware de paginação pudesse acessá-las. Assim, ele pode aplicar os métodos sort, skip e limit na busca para realizar a paginação e retornar os resultados.
+
+
+## Aula 05 - Conclusão - Video 4
+Nesta aula, revisamos os tópicos estudados no curso de API com Node.JS e conferimos o resultado do projeto. Aprendemos sobre o tratamento de erros, onde testamos diferentes URLs no Postman e verificamos como o back-end trata erros específicos. Em seguida, exploramos as funcionalidades de busca, filtros e paginação, utilizando filtros como título e nome do autor para obter resultados específicos. Também aprendemos sobre o uso de middlewares para implementar a lógica de paginação em diferentes rotas. Por fim, concluímos o curso com considerações finais, destacando a importância de compartilhar o projeto no LinkedIn, avaliar o curso e participar da comunidade da Alura.
