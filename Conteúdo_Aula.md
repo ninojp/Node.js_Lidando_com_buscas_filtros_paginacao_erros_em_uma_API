@@ -33,7 +33,7 @@ Na rota de buscar um autor pelo seu ID, identificamos os casos em que: o dado fo
 
 
 
-
+## Aula 02 - Avançando o Tratamento de Erros
 ## Aula 02 - Middlewares do Express - video 1
 Nesta aula, foi abordado o tratamento de erros na API. Foi mostrado como tratar erros específicos em uma rota específica e como lidar com erros internos do servidor. Foi introduzido o conceito de middlewares no Express, que são funções especiais que interceptam requisições feitas para a API. Foi criado um middleware de tratamento de erros que será executado em todas as requisições e será responsável por tratar os erros de forma centralizada. Foi feita a refatoração dos métodos das rotas para utilizar o middleware de tratamento de erros. Também foi mostrado como separar o middleware em um arquivo separado para deixar o código mais organizado. 
 > Lembrete: é importante sempre declarar os quatro parâmetros, porque o Express identificará que esse middleware é de tratamento de erros. 
@@ -75,7 +75,6 @@ Esse middleware deve ser registrado após todas as outras rotas da aplicação. 
 
 
 ## Aula 03 - Validando os Dados
-
 ## Aula 03 - Validações do Mongoose - video 1
 Nesta aula, aprendemos a fazer validações de dados utilizando o Mongoose. Foram mostradas as validações de número mínimo e máximo de páginas, além da validação de valores permitidos para o campo editora. Também vimos como personalizar as mensagens de erro em português.
 
@@ -100,9 +99,7 @@ Validadores globais também podem ser criados no Mongoose para realizar verifica
 
 
 
-
 ## Aula 04 - Avançando em buscas e filtros
-
 ## Aula 04 - Buscando por título do livro - video 1
 Nesta aula, avançamos em buscas e filtros em uma API utilizando Node.js. Implementamos um filtro para o título do livro, permitindo que o usuário escreva o nome do livro e obtenha o retorno da API. Renomeamos o método listarLivroPorEditora para listarLivroPorFiltro e adicionamos a busca por título no método find do mongoose. Criamos um objeto de busca dinâmico, adicionando propriedades de acordo com os parâmetros fornecidos. Testamos a funcionalidade no Postman, buscando por editora, título e ambos. Concluímos que é possível buscar somente pela editora ou pelo título, mas faremos uma implementação para buscar por palavras-chave no próximo vídeo.
 
@@ -137,3 +134,17 @@ Utilizamos os operadores de busca $gte (greater than or equal, que significa “
 Buscar livros pelo nome do autor:
 
 Como o nome do autor não é uma informação presente na coleção de livros, foi necessário realizar mais uma consulta para a coleção de autores, pois lá é possível obter seu id e realizar corretamente o filtro na busca de livros.
+
+
+
+## Aula 05 - Implementando Paginação
+## Aula 05 - Paginando uma rota - video 1
+Nesta aula, aprendemos sobre o conceito de paginação em uma API. A paginação consiste em retornar apenas uma quantidade limitada de resultados por vez, permitindo que o usuário navegue entre as páginas para visualizar todos os dados. Implementamos a paginação no código utilizando os parâmetros de limite e página recebidos do front-end. Também realizamos o tratamento de erros, verificando se os valores dos parâmetros são válidos e lançando um erro caso contrário.
+
+
+## Aula 05 - Ordenando os resultados - video 2
+Nesta aula, aprendemos a implementar a ordenação dos resultados da listagem de livros em uma API utilizando o método sort(). Primeiro, ordenamos por ID em ordem decrescente e depois por título em ordem crescente. Também vimos como receber os parâmetros de ordenação do front-end e como simplificar a URL utilizando um único parâmetro para informar a ordenação. Além disso, discutimos a possibilidade de reutilizar a paginação em outras rotas.
+
+
+## Aula 05 - Reutilizando paginação - video 3
+Nesta aula, implementamos a lógica de paginação e ordenação em uma rota da API, especificamente na listagem de livros. Utilizamos o middleware do Express para realizar esse processo, armazenando o código em um local separado para reutilização. Criamos o middleware paginar.js que recebe os parâmetros de busca, ordenação e paginação da requisição e aplica essas configurações na consulta ao banco de dados. Registramos esse middleware nas rotas de listagem de livros e autores, permitindo a paginação e ordenação nessas rotas.
